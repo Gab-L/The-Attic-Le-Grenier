@@ -1,0 +1,188 @@
+{
+  "author": "Créations SVG originales pour Le Grenier",
+  "license": "Créations propres au projet ; licence de distribution à choisir par son propriétaire.",
+  "source": "scripts/generate-assets.mjs",
+  "externalServices": false,
+  "assets": [
+    {
+      "id": "bille",
+      "path": "/objects/bille.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "yoyo",
+      "path": "/objects/yoyo.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "corde",
+      "path": "/objects/corde.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "toupie",
+      "path": "/objects/toupie.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "ressort",
+      "path": "/objects/ressort.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "billes",
+      "path": "/objects/billes.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "regle",
+      "path": "/objects/regle.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "trousse",
+      "path": "/objects/trousse.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "stylo",
+      "path": "/objects/stylo.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "gomme",
+      "path": "/objects/gomme.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "carnet",
+      "path": "/objects/carnet.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "globe",
+      "path": "/objects/globe.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "manette",
+      "path": "/objects/manette.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "cartouche",
+      "path": "/objects/cartouche.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "de",
+      "path": "/objects/de.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "portable",
+      "path": "/objects/portable.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "tapis",
+      "path": "/objects/tapis.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "borne",
+      "path": "/objects/borne.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "cassette",
+      "path": "/objects/cassette.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "casque",
+      "path": "/objects/casque.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "cd",
+      "path": "/objects/cd.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "baladeur",
+      "path": "/objects/baladeur.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "mp3",
+      "path": "/objects/mp3.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "radio",
+      "path": "/objects/radio.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "disquette",
+      "path": "/objects/disquette.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "souris",
+      "path": "/objects/souris.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "usb",
+      "path": "/objects/usb.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "clavier",
+      "path": "/objects/clavier.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "ecran",
+      "path": "/objects/ecran.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "robot",
+      "path": "/objects/robot.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "reveil",
+      "path": "/objects/reveil.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "telephone",
+      "path": "/objects/telephone.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "appareil",
+      "path": "/objects/appareil.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "lampe",
+      "path": "/objects/lampe.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "etoile",
+      "path": "/objects/etoile.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    },
+    {
+      "id": "planete",
+      "path": "/objects/planete.svg",
+      "provenance": "Dessin vectoriel original, sans logo ni personnage sous licence"
+    }
+  ]
+}
