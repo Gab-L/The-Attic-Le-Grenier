@@ -1,6 +1,6 @@
 # Utiliser Le Grenier avec Vercel
 
-Le code est configuré pour Vercel. La création du projet et de sa base de données se fait dans votre compte ; aucun site externe n’a été déployé depuis cet environnement.
+Le code est configuré pour Vercel. La création du projet et de sa base de données se fait dans votre compte.
 
 ## Depuis votre navigateur
 
@@ -20,6 +20,8 @@ L’adresse exacte dépend du nom disponible dans votre compte. Le lien de confi
 ## Configuration automatique
 
 `vercel.json` utilise Next.js, installe les dépendances puis lance `npm run build:vercel`. Cette commande vérifie les variables nécessaires, applique les migrations, ajoute le catalogue manquant et compile le site. Elle ne supprime ni les joueurs ni les collections existantes. Aucun Docker, terminal ou fichier `.env` n’est nécessaire dans Vercel.
+
+Les fonctions du jeu s’exécutent à Francfort (`fra1`), dans la même région que la base Neon choisie pour ce projet. Cela réduit le temps des échanges avec la base. Pour une nouvelle installation, choisir également Frankfurt pour Neon, ou adapter `regions` à la région de sa base.
 
 L’application détecte l’adresse de production fournie par Vercel pour les connexions, la protection des requêtes et les métadonnées. Laisser activée l’exposition des variables système de Vercel. Pour un domaine personnel ultérieur, l’ajouter dans **Settings → Domains**, définir `BETTER_AUTH_URL=https://votre-domaine` pour **Production**, puis redéployer et utiliser cette adresse.
 

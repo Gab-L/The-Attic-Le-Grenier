@@ -10,7 +10,7 @@ Jeu web en français, jouable et sauvegardé dans PostgreSQL. Interface responsi
 
 **[Configurer Le Grenier dans Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGab-L%2FThe-Attic-Le-Grenier%2Ftree%2Fcodex%2Fle-grenier-vercel&project-name=le-grenier&repository-name=le-grenier&env=BETTER_AUTH_SECRET&envDescription=Cr%C3%A9ez%20un%20secret%20al%C3%A9atoire%20priv%C3%A9%20d%E2%80%99au%20moins%2032%20caract%C3%A8res%20et%20conservez-le%20dans%20Vercel.&envLink=https%3A%2F%2Fgenerate-secret.vercel.app%2F&stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D)** : connecter votre compte GitHub, ajouter une base Neon/PostgreSQL et renseigner le secret privé demandé, puis cliquer sur **Deploy**. Vercel fournit l’adresse du site en `.vercel.app`, sans rien installer sur votre ordinateur.
 
-Le projet est préparé pour ce déploiement ; aucun site n’est encore publié depuis cet environnement. [Guide pas à pas et dépannage](docs/MISE-EN-LIGNE.md).
+Le projet est configuré pour ce déploiement. [Guide pas à pas et dépannage](docs/MISE-EN-LIGNE.md).
 
 ## Lancer le jeu
 

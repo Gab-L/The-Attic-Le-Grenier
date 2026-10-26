@@ -30,7 +30,7 @@ Mise à jour : 26 octobre 2026.
 
 ## En cours
 
-- La boucle locale est livrée. Le propriétaire a choisi Vercel ; la création du projet et la connexion à une base PostgreSQL restent à effectuer depuis son compte en suivant [le guide](docs/MISE-EN-LIGNE.md).
+- La boucle locale est livrée. Le propriétaire a créé le projet Vercel `the_attic`, configuré la branche `codex/le-grenier-vercel` et relié Neon à Francfort avec `DATABASE_URL` en Production. Il a confirmé l’enregistrement du secret privé d’authentification. Les fonctions sont configurées dans la même région (`fra1`). Le déploiement et le fonctionnement public du jeu restent à vérifier.
 
 ## Blocages et limites concrètes
 
@@ -38,7 +38,7 @@ Mise à jour : 26 octobre 2026.
 - Aucun SMTP configuré : récupération de mot de passe annoncée indisponible ; branchement prêt via `SMTP_URL`/`MAIL_FROM`, aucun email réel testé.
 - Le téléchargement Playwright est refusé par la politique réseau ; les tests passent avec le Chromium système (`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium`).
 - Safari/Firefox, appareils tactiles physiques, charge et restauration dans une nouvelle tâche cloud non validés. Le volume Docker n’est pas présumé inclus dans un instantané Codex.
-- Aucun déploiement externe effectué. Mentions d’éditeur, procédures de suppression/export de compte et politique de conservation à compléter avant exploitation publique.
+- Aucun déploiement réussi du jeu vérifié dans Vercel. L’accès HTTP au domaine public est refusé par le réseau de cet environnement ; la vérification du résultat demande le tableau de bord Vercel et un navigateur autorisé. Mentions d’éditeur, procédures de suppression/export de compte et politique de conservation à compléter avant exploitation publique.
 - Administration limitée à la modification/archivage des définitions existantes ; nouveaux objets et changements structurels via migration. Verrou global de jeu à affiner pour un fort trafic.
 
 ## Prochaines améliorations utiles
