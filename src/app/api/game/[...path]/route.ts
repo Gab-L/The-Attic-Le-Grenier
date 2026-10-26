@@ -3,7 +3,7 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import * as game from "@/lib/game";
 import { GameError, requireThat } from "@/lib/rules";
-import { siteOrigin } from "@/lib/site-url";
+import { trustedSiteOrigins } from "@/lib/site-url";
 export const dynamic = "force-dynamic";
 const uuid = z.string().uuid();
 const roomSchema = z.object({
@@ -43,7 +43,7 @@ async function handle(
     const path = (await context.params).path.join("/");
     if (req.method !== "GET")
       requireThat(
-        req.headers.get("origin") === siteOrigin(),
+        trustedSiteOrigins().includes(req.headers.get("origin") ?? ""),
         "Origine de la requête refusée.",
         403,
       );

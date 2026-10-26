@@ -25,6 +25,8 @@ Les fonctions du jeu s’exécutent à Francfort (`fra1`), dans la même région
 
 L’application détecte l’adresse de production fournie par Vercel pour les connexions, la protection des requêtes et les métadonnées. Laisser activée l’exposition des variables système de Vercel. Pour un domaine personnel ultérieur, l’ajouter dans **Settings → Domains**, définir `BETTER_AUTH_URL=https://votre-domaine` pour **Production**, puis redéployer et utiliser cette adresse.
 
+Les connexions et actions du jeu acceptent également les adresses exactes du déploiement et de sa branche fournies par `VERCEL_URL` et `VERCEL_BRANCH_URL`. Le bouton **Visit** fonctionne ainsi même lorsqu’il ouvre l’adresse propre au déploiement. Les origines d’autres projets Vercel restent refusées. Pour jouer et partager le jeu au quotidien, utiliser le domaine permanent : un ancien lien de déploiement reste attaché à son ancienne version.
+
 Les déploiements de prévisualisation utilisent leur propre adresse. Les connecter à une base distincte de la production, car chaque construction exécute les migrations et le catalogue. Un changement d’adresse ne transfère pas les sessions invitées : créer un compte pour retrouver sa progression sur le domaine définitif.
 
 `SMTP_URL` et `MAIL_FROM` sont facultatifs ; sans eux, la récupération d’un mot de passe par email est indisponible. Les sauvegardes de la base et les informations d’éditeur restent à configurer pour une ouverture publique.

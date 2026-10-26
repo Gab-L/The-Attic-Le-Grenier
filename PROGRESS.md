@@ -18,19 +18,21 @@ Mise à jour : 26 octobre 2026.
 
 ## Vérifications obtenues
 
-- **24/24 tests réussis**, aucun ignoré : recharge/plafond, distribution, catalogue actif, idempotence, concurrence, propriété, placement, versions, vie privée, transferts, expiration, blocage, récompenses, autorisation administrateur et résolution sécurisée des origines Vercel/locales/personnalisées.
+- **27/27 tests réussis**, aucun ignoré : recharge/plafond, distribution, catalogue actif, idempotence, concurrence, propriété, placement, versions, vie privée, transferts, expiration, blocage, récompenses, autorisation administrateur et résolution sécurisée des origines Vercel/locales/personnalisées.
 - **5/5 parcours Chromium réussis** : parcours invité jusqu’au compte/partage/révocation ; vues mobile 360 px ; protection session/CSRF/admin ; échange réel par l’interface entre deux comptes ; conservation du compte existant et séparation de l’essai.
 - Le parcours principal vérifie également le déplacement par glisser-déposer souris, le placement au clavier et le téléchargement PNG. Le parcours mobile enrichi a été relancé et valide un geste tactile émulé dans Chromium.
 - Accueil, ouverture, collection et chambre inspectés visuellement en desktop/mobile ; aucun débordement horizontal dans les quatre vues à 360 px. Aperçus conservés dans `docs/previews`.
 - Réinstallation `npm ci` depuis le lockfile réussie ; TypeScript, ESLint et compilation de production réussis. Commande `npm run setup` rejouée sans réinitialiser les données.
 - Serveur de production démarré sur le port 3000 : accueil, santé PostgreSQL et image Open Graph répondent 200. Une véritable session invitée et une ouverture persistante de trois objets ont été vérifiées sur ce build ; la répétition avec la même clé retourne la même ouverture. La session de ce contrôle a ensuite été supprimée.
 - Secret d’authentification absent des 31 fichiers JavaScript publics du build ; `.env`, dépendances et fichiers de build ignorés par Git.
-- Compilation Vercel simulée réussie dans une copie sans `.env` : secret privé injecté, `POSTGRES_URL` utilisée sans `DATABASE_URL`, domaine Vercel détecté sans `BETTER_AUTH_URL`, migrations/catalogue puis compilation Next.js. Aucun déploiement réel dans le compte Vercel validé.
+- Compilation Vercel simulée réussie dans une copie sans `.env` : secret privé injecté, `POSTGRES_URL` utilisée sans `DATABASE_URL`, domaine Vercel détecté sans `BETTER_AUTH_URL`, migrations/catalogue puis compilation Next.js. Ce premier contrôle était local.
+- Le déploiement `631b137` a ensuite été confirmé **Ready / Production / Current** par le tableau de bord Vercel partagé par le propriétaire, avec l’accueil du jeu visible sur `theattic-six.vercel.app`.
+- Le refus de session sur l’adresse propre au déploiement a été reproduit en test : HTTP 403 sur l’alias, réussite sur le domaine permanent. Correction par une liste commune d’origines exactes pour Better Auth et les actions du jeu. Le test vérifie de vraies sessions HTTPS, un carton de trois objets et la persistance sur le domaine permanent, l’alias du déploiement et celui de la branche, puis le refus des origines étrangères, absentes ou trompeuses.
 - Champs `install_script` et `start_skill` enregistrés avec succès dans le brouillon de configuration Codex. Leur activation pour les futures tâches demande une revue/enregistrement des paramètres puis la publication de l’environnement dans l’interface. Aucun environnement publié et aucune restauration en nouvelle tâche revendiqués.
 
 ## En cours
 
-- La boucle locale est livrée. Le propriétaire a créé le projet Vercel `the_attic`, configuré la branche `codex/le-grenier-vercel` et relié Neon à Francfort avec `DATABASE_URL` en Production. Il a confirmé l’enregistrement du secret privé d’authentification. Les fonctions sont configurées dans la même région (`fra1`). Le déploiement et le fonctionnement public du jeu restent à vérifier.
+- Le projet Vercel `the_attic` utilise la branche `codex/le-grenier-vercel`, Neon à Francfort et les fonctions dans la même région (`fra1`). `DATABASE_URL` et le secret d’authentification sont configurés en Production. Le déploiement initial est confirmé ; la correction des sessions sur les alias Vercel reste à vérifier sur le site après redéploiement.
 
 ## Blocages et limites concrètes
 
@@ -38,7 +40,7 @@ Mise à jour : 26 octobre 2026.
 - Aucun SMTP configuré : récupération de mot de passe annoncée indisponible ; branchement prêt via `SMTP_URL`/`MAIL_FROM`, aucun email réel testé.
 - Le téléchargement Playwright est refusé par la politique réseau ; les tests passent avec le Chromium système (`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium`).
 - Safari/Firefox, appareils tactiles physiques, charge et restauration dans une nouvelle tâche cloud non validés. Le volume Docker n’est pas présumé inclus dans un instantané Codex.
-- Aucun déploiement réussi du jeu vérifié dans Vercel. L’accès HTTP au domaine public est refusé par le réseau de cet environnement ; la vérification du résultat demande le tableau de bord Vercel et un navigateur autorisé. Mentions d’éditeur, procédures de suppression/export de compte et politique de conservation à compléter avant exploitation publique.
+- L’accès HTTP au domaine public est refusé par le réseau de cet environnement ; la vérification du résultat public demande le tableau de bord Vercel et un navigateur autorisé. Mentions d’éditeur, procédures de suppression/export de compte et politique de conservation à compléter avant exploitation publique.
 - Administration limitée à la modification/archivage des définitions existantes ; nouveaux objets et changements structurels via migration. Verrou global de jeu à affiner pour un fort trafic.
 
 ## Prochaines améliorations utiles

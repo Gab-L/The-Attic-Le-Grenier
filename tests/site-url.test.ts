@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { siteOrigin } from "../src/lib/site-url";
+import { siteOrigin, trustedSiteOrigins } from "../src/lib/site-url";
 
 test("origine locale et domaine personnalisé explicite", () => {
   assert.equal(siteOrigin({}), "http://localhost:3000");
@@ -35,6 +35,54 @@ test("refus des origines ambiguës ou absentes dans Vercel", () => {
     "https://site.example/path",
     "https://site.example?q=1",
     "javascript:alert(1)",
+    "https://*.vercel.app",
   ])
     assert.throws(() => siteOrigin({ BETTER_AUTH_URL: url }));
+});
+
+test("les alias autorisés viennent exclusivement du déploiement configuré", () => {
+  const origins = trustedSiteOrigins({
+    VERCEL: "1",
+    VERCEL_ENV: "production",
+    BETTER_AUTH_URL: "https://jeu.example",
+    VERCEL_PROJECT_PRODUCTION_URL: "grenier.vercel.app",
+    VERCEL_URL: "grenier-current.vercel.app",
+    VERCEL_BRANCH_URL: "grenier-git-main.vercel.app",
+  });
+  assert.deepEqual(origins, [
+    "https://jeu.example",
+    "https://grenier-current.vercel.app",
+    "https://grenier-git-main.vercel.app",
+    "https://grenier.vercel.app",
+  ]);
+  assert.equal(origins.includes("https://other-project.vercel.app"), false);
+  assert.throws(() =>
+    trustedSiteOrigins({
+      VERCEL: "1",
+      BETTER_AUTH_URL: "https://jeu.example",
+      VERCEL_URL: "*.vercel.app",
+    }),
+  );
+});
+
+test("les previews et le développement ne font pas confiance au domaine de production", () => {
+  const environment = {
+    VERCEL: "1",
+    VERCEL_ENV: "preview",
+    VERCEL_PROJECT_PRODUCTION_URL: "grenier.vercel.app",
+    VERCEL_URL: "grenier-preview.vercel.app",
+    VERCEL_BRANCH_URL: "grenier-git-test.vercel.app",
+  };
+  assert.deepEqual(trustedSiteOrigins(environment), [
+    "https://grenier-preview.vercel.app",
+    "https://grenier-git-test.vercel.app",
+  ]);
+  assert.deepEqual(
+    trustedSiteOrigins({
+      ...environment,
+      VERCEL: undefined,
+      BETTER_AUTH_URL: "http://localhost:3000",
+    }),
+    ["http://localhost:3000"],
+  );
 });

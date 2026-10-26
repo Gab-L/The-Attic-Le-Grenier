@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
 import { Pool } from "pg";
+import { NextRequest } from "next/server";
 // Isolated database: never reset or seed the development database.
 const connection = new URL(process.env.DATABASE_URL!);
 const original = new Pool({ connectionString: connection.toString() });
@@ -12,6 +13,15 @@ process.env.DATABASE_URL = connection.toString();
 const { pool } = await import("../src/lib/db");
 const game = await import("../src/lib/game");
 const { catalogue, collections } = await import("../src/lib/catalog");
+// Exercise real auth and game handlers with Vercel's distinct HTTPS aliases.
+delete process.env.BETTER_AUTH_URL;
+process.env.VERCEL = "1";
+process.env.VERCEL_ENV = "production";
+process.env.VERCEL_PROJECT_PRODUCTION_URL = "grenier.vercel.app";
+process.env.VERCEL_URL = "grenier-current.vercel.app";
+process.env.VERCEL_BRANCH_URL = "grenier-git-main.vercel.app";
+const { auth } = await import("../src/lib/auth");
+const gameRoute = await import("../src/app/api/game/[...path]/route");
 before(async () => {
   if (
     !(
@@ -334,4 +344,93 @@ test("administration : contrôle du rôle, audit, archivage et refus d’une rar
   );
   assert.ok((await game.getAdmin(p.user)).audit.length > 0);
   await game.updateAdmin(p.user, { definition: { ...robot, active: true } });
+});
+
+test("Vercel : session et carton sur chaque alias, refus des origines étrangères", async () => {
+  const origins = [
+    "https://grenier.vercel.app",
+    "https://grenier-current.vercel.app",
+    "https://grenier-git-main.vercel.app",
+  ];
+  for (const [index, origin] of origins.entries()) {
+    const headers = {
+      origin,
+      "content-type": "application/json",
+      "sec-fetch-site": "same-origin",
+      "x-forwarded-for": `203.0.113.${index + 1}`,
+      // A Vercel toolbar cookie must not prevent a first guest session.
+      cookie: "unrelated-cookie=present",
+    };
+    const session = await auth.handler(
+      new Request(`${origin}/api/auth/sign-in/anonymous`, {
+        method: "POST",
+        headers,
+        body: "{}",
+      }),
+    );
+    assert.equal(session.status, 200, `Session invitée sur ${origin}`);
+    const sessionCookie = session.headers
+      .getSetCookie()
+      .find((cookie) =>
+        cookie.startsWith("__Secure-better-auth.session_token="),
+      );
+    assert.ok(sessionCookie);
+    assert.match(sessionCookie, /HttpOnly/i);
+    assert.match(sessionCookie, /Secure/i);
+    headers.cookie = sessionCookie.split(";")[0];
+    const stateRequest = () =>
+      gameRoute.GET(new NextRequest(`${origin}/api/game/state`, { headers }), {
+        params: Promise.resolve({ path: ["state"] }),
+      });
+    assert.equal((await stateRequest()).status, 200);
+    const opening = await gameRoute.POST(
+      new NextRequest(`${origin}/api/game/open`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ key: randomUUID() }),
+      }),
+      { params: Promise.resolve({ path: ["open"] }) },
+    );
+    assert.equal(opening.status, 200, `Ouverture sur ${origin}`);
+    assert.equal((await opening.json()).results.length, 3);
+    const state = await (await stateRequest()).json();
+    assert.equal(state.inventory.length, 3);
+    assert.equal(state.player.stock, 0);
+  }
+  for (const origin of [
+    "https://other-project.vercel.app",
+    "https://grenier-current.vercel.app.attacker.example",
+    "http://grenier-current.vercel.app",
+    "null",
+    "",
+  ]) {
+    const headers = {
+      origin,
+      "content-type": "application/json",
+      cookie: "unrelated-cookie=present",
+      host: "grenier-current.vercel.app",
+      "x-forwarded-host": "grenier-current.vercel.app",
+      "x-forwarded-for": "203.0.113.20",
+    };
+    const denied = await auth.handler(
+      new Request(
+        "https://grenier-current.vercel.app/api/auth/sign-in/anonymous",
+        {
+          method: "POST",
+          headers,
+          body: "{}",
+        },
+      ),
+    );
+    assert.equal(denied.status, 403, `Authentification interdite : ${origin}`);
+    const gameDenied = await gameRoute.POST(
+      new NextRequest("https://grenier-current.vercel.app/api/game/open", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ key: randomUUID() }),
+      }),
+      { params: Promise.resolve({ path: ["open"] }) },
+    );
+    assert.equal(gameDenied.status, 403, `Jeu interdit : ${origin}`);
+  }
 });

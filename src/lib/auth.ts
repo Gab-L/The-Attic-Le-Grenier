@@ -5,11 +5,12 @@ import { APIError, createAuthMiddleware } from "better-auth/api";
 import nodemailer from "nodemailer";
 import { db, transaction } from "./db";
 import { gameLock } from "./game";
-import { siteOrigin } from "./site-url";
+import { siteOrigin, trustedSiteOrigins } from "./site-url";
 const recoveryEnabled = Boolean(process.env.SMTP_URL && process.env.MAIL_FROM);
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: "pg" }),
   baseURL: siteOrigin(),
+  trustedOrigins: trustedSiteOrigins(),
   secret: process.env.BETTER_AUTH_SECRET,
   emailAndPassword: {
     enabled: true,
